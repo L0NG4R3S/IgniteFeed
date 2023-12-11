@@ -1,0 +1,22 @@
+.wrapper {
+  max-width: 70rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* // caso o dispositivo seja pequeno o grid deve ter apenas uma coluna */
+@media (max-width: 768px) {
+  html {
+    /* reduzir o tamanho da fonte no celular */
+    font-size: 87.5%;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+}

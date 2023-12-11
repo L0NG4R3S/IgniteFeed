@@ -1,0 +1,13 @@
+/* css modules
+buscar usar sempre classes, nao usar ids e outras coisas */
+.header {
+  background: var(--gray-800);
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0;
+}
+
+/* Pegar o header e estilizar a imagem que esta dentro dele */
+.header img {
+  height: 2rem;
+}

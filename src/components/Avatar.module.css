@@ -1,0 +1,21 @@
+.avatar {
+  /* box-sizing: initial; expande o conteudo quando adicionar bordas e padding e etc */
+  /* width: 3rem;
+  height: 3rem; */
+  /* Solucao alternativa ao box-sizing acima: */
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+}
+
+.avatarWithBorder  {
+  /* box-sizing: initial; expande o conteudo quando adicionar bordas e padding e etc */
+  /* width: 3rem;
+  height: 3rem; */
+  /* Solucao alternativa ao box-sizing acima: */
+  width: calc(3rem + 12px);
+  height: calc(3rem + 12px);
+  border-radius: 8px;
+  border: 4px solid var(--gray-800); 
+  outline: 4px solid var(--green-500); 
+}
