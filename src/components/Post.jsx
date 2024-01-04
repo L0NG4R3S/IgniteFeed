@@ -1,6 +1,8 @@
 import styles from './Post.module.css'
 import { Comment } from './Comment'
 import { Avatar } from './Avatar'
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBr from 'date-fns/locale/pt-BR'
 
 // author: { avatarUrl: "", name: "", role: ""}
 // publishedAt: Date
@@ -8,12 +10,22 @@ import { Avatar } from './Avatar'
 
 export function Post({ author, publishedAt, content }) {
   // usando Intl para formatar a data
-  const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
-    day: '2-digit',
-    month: 'long',
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(publishedAt)
+  // const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+  //   day: '2-digit',
+  //   month: 'long',
+  //   hour: '2-digit',
+  //   minute: '2-digit'
+  // }).format(publishedAt)
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'as' HH:mm'h'", {
+    locale: ptBr
+  })
+
+  const publishedDateRelativeFromNow = formatDistanceToNow(publishedAt, {
+    locale: ptBr,
+    addSuffix: true
+  })
+
+  console.log('content', content)
 
   return (
     <article className={styles.post}>
@@ -26,18 +38,17 @@ export function Post({ author, publishedAt, content }) {
           </div>
         </div>
 
-        <time title="11 de maio às 08:13" dateTime="2022-05-11 08:13:30">{publishedDateFormatted}</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>{publishedDateRelativeFromNow}</time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p><a href=''>jane.design/doctorcare</a></p>
-        <p>
-          <a href=''>#novoprojeto</a>{' '}
-          <a href=''>#nlw</a>{' '}
-          <a href=''>#rocketseat</a>
-        </p>
+        {content.map((item, index)=>{
+          if(item.type === 'paragraph'){
+            return <p key={index}>{item.content}</p>
+          }else {
+            return <p key={index}><a href='#'>{item.content}</a></p>
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}> 
