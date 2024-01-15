@@ -3,6 +3,7 @@ import { Comment } from './Comment'
 import { Avatar } from './Avatar'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
+import { useState } from 'react'
 
 // author: { avatarUrl: "", name: "", role: ""}
 // publishedAt: Date
@@ -16,6 +17,9 @@ export function Post({ author, publishedAt, content }) {
   //   hour: '2-digit',
   //   minute: '2-digit'
   // }).format(publishedAt)
+
+  const [comments, setComments] = useState([1, 2])
+
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'as' HH:mm'h'", {
     locale: ptBr
   })
@@ -25,7 +29,12 @@ export function Post({ author, publishedAt, content }) {
     addSuffix: true
   })
 
-  console.log('content', content)
+  function handleCreateNewComent() {
+    // fugit do padrao de navegacao do html pois estamos criando uma single page application
+    event.preventDefault()
+    console.log('oi')
+    setComments([...comments, comments.length+1])
+  }
 
   return (
     <article className={styles.post}>
@@ -51,7 +60,7 @@ export function Post({ author, publishedAt, content }) {
         })}
       </div>
 
-      <form className={styles.commentForm}> 
+      <form className={styles.commentForm} onSubmit={handleCreateNewComent} > 
         <strong>Deixe seu comentário</strong>
         <textarea placeholder="Deixe um comentário" />
         <footer>
@@ -60,9 +69,9 @@ export function Post({ author, publishedAt, content }) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((item) => {
+          return <Comment />
+        })}
       </div>
     </article>
   )
